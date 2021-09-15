@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Пост {{ post.text|truncatewords:30}}
+{% endblock %}
+
+  {% block header %}
+    Группа: {{ post.group.title }}
+  {% endblock %} 
+
+{% block content %}
+<ul>
+  <li>
+    Дата публикации: {{ post.pub_date|date:"d E Y" }}
+  </li>
+  <li>
+  {% comment %} {% block header %}
+    Группа: {{ post.group }}
+  {% endblock %}  {% endcomment %}
+  </li>
+  <li>
+    {% if post.group  %}
+    <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+    {% else %}
+    {% endif %}
+  </li>
+  <li>
+    Автор: {{ post.author.get_full_name }}
+  </li>
+  <li>
+    Всего постов автора: {{ count }}
+  </li>
+  <li>
+    <a href="{% url 'posts:profile' post.author.username %}">
+      все посты пользователя
+    </a>
+  </li>
+</ul>
+<p>{{ post.text}}</p>
+<input type="button" onclick="window.location.href = '{% url 'posts:post_edit' post.pk %}';"value="Редактировать запись"/>
+</ul>
+{% endblock %}
