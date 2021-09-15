@@ -4,9 +4,6 @@
 Пост {{ post.text|truncatewords:30}}
 {% endblock %}
 
-  {% block header %}
-    Группа: {{ post.group.title }}
-  {% endblock %} 
 
 {% block content %}
 <ul>
@@ -14,9 +11,7 @@
     Дата публикации: {{ post.pub_date|date:"d E Y" }}
   </li>
   <li>
-  {% comment %} {% block header %}
-    Группа: {{ post.group }}
-  {% endblock %}  {% endcomment %}
+  Группа: {{ post.group.title }}
   </li>
   <li>
     {% if post.group  %}

@@ -1,16 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}
-  Записи сообщества {{ group.title }}
-{% endblock %}
+{% block title %}{{ group.title }}{% endblock %}
 
-{% block header %}
-<p><h1>Записи сообщества: Лев Толстой – зеркало русской революции</h3></p>
-  <p>Группа {{ group.title }}</p>
-{% endblock %} 
+{% block header %}<h1>{{ group.title }}</h1>{% endblock %} 
 
 
 {% block content %}
+<p>{{ group.description }}</p>
 {% for post in page_obj %}
   <ul>
     <li>
