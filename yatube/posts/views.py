@@ -9,13 +9,9 @@ from .models import Group, Post, User
 
 def index(request):
     post_list = Post.objects.all()
-    # Показывать по 10 записей на странице.
     paginator = Paginator(post_list, settings.PAGE_POST)
-    # Из URL извлекаем номер запрошенной страницы - это значение параметра page
     page_number = request.GET.get('page')
-    # Получаем набор записей для страницы с запрошенным номером
     page_obj = paginator.get_page(page_number)
-    # Отдаем в словаре контекста
     context = {
         'page_obj': page_obj,
     }
@@ -66,7 +62,7 @@ def post_edit(request, post_id):
 
 
 def profile(request, username):
-    user = User.objects.get(username=username)
+    user = get_object_or_404(User, username=username)
     posts = Post.objects.filter(author=user)
     paginator = Paginator(posts, settings.PAGE_POST)
     page_number = request.GET.get('page')
@@ -76,7 +72,7 @@ def profile(request, username):
         'author': user,
         'page_obj': page_obj,
         'num_post': num_post,
-        'username': username,
+        # 'username': username,
     }
     return render(request, 'posts/profile.html', context)
 

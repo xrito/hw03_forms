@@ -27,7 +27,6 @@ class Post(models.Model):
     )
 
     def __str__(self):
-        # выводим текст поста
         return self.text
 
     class Meta:
