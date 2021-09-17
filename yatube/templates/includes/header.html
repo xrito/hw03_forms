@@ -5,21 +5,26 @@
       <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
       <span style="color:red">Ya</span>tube
     </a>
+    {% with request.resolver_match.view_name as view_name %}  
     <ul class="nav  nav-pills">
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'about:author' %}">
+        <a class="nav-link {% if view_name  == 'about:author' %}active{% endif %}" 
+        href="{% url 'about:author' %}">
           Об авторе
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="{% url 'about:tech' %}">
+        <a class="nav-link {% if view_name  == 'about:tech' %}active{% endif %}" 
+        href="{% url 'about:tech' %}">
           Технологии
         </a>
       </li>
+      {% endwith %}
+      
       {% if user.is_authenticated %}
-
       <li class="nav-item">
-        <a class="nav-link " href="{% url 'posts:create_post' %}">
+        <a class="nav-link {% if request.resolver_match.view_name  == 'posts:create_post' %}active{% endif %}" 
+        href="{% url 'posts:create_post' %}">
           Новая запись
         </a>
       </li>
@@ -40,8 +45,8 @@
       <li class="nav-item">
         <a class="nav-link link-light " href="{% url 'users:signup' %}">Регистрация</a>
       </li>
-
       {% endif %}
+      
     </ul>
   </div>
 </nav>

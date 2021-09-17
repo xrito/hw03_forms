@@ -33,7 +33,7 @@ def group_posts(request, slug):
 
 @login_required
 def post_create(request):
-    form = PostForm(request.POST)
+    form = PostForm(request.POST or None)
     if form.is_valid():
         post = form.save(commit=False)
         post.author = request.user
@@ -45,10 +45,11 @@ def post_create(request):
     return render(request, 'posts/create_post.html', context)
 
 
+@login_required
 def post_edit(request, post_id):
     post = get_object_or_404(Post, pk=post_id, author=request.user)
     if request.method != 'POST':
-        form = PostForm(instance=post)
+        form = PostForm(request.POST or None, instance=post)
     else:
         form = PostForm(instance=post, data=request.POST)
         if form.is_valid():
@@ -63,7 +64,7 @@ def post_edit(request, post_id):
 
 def profile(request, username):
     user = get_object_or_404(User, username=username)
-    posts = Post.objects.filter(author=user)
+    posts = user.posts.all()
     paginator = Paginator(posts, settings.PAGE_POST)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -72,7 +73,6 @@ def profile(request, username):
         'author': user,
         'page_obj': page_obj,
         'num_post': num_post,
-        # 'username': username,
     }
     return render(request, 'posts/profile.html', context)
 
