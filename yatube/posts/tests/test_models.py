@@ -17,7 +17,7 @@ class PostModelTest(TestCase):
         )
         cls.group = Group.objects.create(
             title='Тестовая группа',
-            slug='Тестовый слаг',
+            slug='group-slug',
             description='Тестовое описание',
         )
 
