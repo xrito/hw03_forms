@@ -8,6 +8,7 @@ SECRET_KEY = 'a-)thsn1q1%=+!yer80sp9r*qcgpt658d%nb3e-(0qr5v!k&p$'
 DEBUG = True
 
 ALLOWED_HOSTS = ['testserver',
+                 '127.0.0.1',
                  ]
 
 INSTALLED_APPS = [
