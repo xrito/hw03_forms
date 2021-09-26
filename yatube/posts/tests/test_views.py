@@ -55,19 +55,12 @@ class PostPagesTests(TestCase):
 
     def test_index_page_show_correct_context(self):
         response = self.authorized_client.get(reverse('posts:index'))
-        # first_object = response.context['page_obj'][0]
-        # post_author_0 = first_object.author
-        # post_text_0 = first_object.text
-        # post_group_0 = first_object.group.title
-        # self.assertEqual(post_author_0, self.author)
-        # self.assertEqual(post_text_0, 'Текст')
-        # self.assertEqual(post_group_0, 'Тестовая группа')
         self.check_context(response.context)
 
     def test_profile_show_correct_context(self):
         response = self.authorized_client.get(
             reverse('posts:profile', args={self.author}))
-        self.check_context(response.context)    
+        self.check_context(response.context)
 
     def test_post_group_list_page_show_correct_context(self):
         response = (self.authorized_client.get(
@@ -120,9 +113,9 @@ class PaginatorViewsTest(TestCase):
             description='Тестовое описание',
         )
         number_of_posts = 13
-        for post_id in range(number_of_posts):
-            Post.objects.create(text='Текст'.format(
-                post_id), author=cls.author, group=cls.group)
+        for post in range(number_of_posts):
+            Post.objects.create(text='Текст', author=cls.author,
+                                group=cls.group)
 
     def setUp(self):
         self.authorized_client = Client()

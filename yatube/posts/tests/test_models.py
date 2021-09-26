@@ -22,19 +22,16 @@ class PostModelTest(TestCase):
         )
 
     def test_models_have_correct_object_names(self):
-        """Проверяем, что у моделей корректно работает __str__."""
         post = PostModelTest.post
         expected_object_name = post.text[:15]
         self.assertEquals(expected_object_name, str(post))
 
     def test_object_name_is_title_fild(self):
-        """В поле __str__  объекта task записано значение поля group.title."""
         group = PostModelTest.group
         expected_object_name = group.title
         self.assertEqual(expected_object_name, str(group))
 
     def test_verbose_name(self):
-        """verbose_name в полях совпадает с ожидаемым."""
         post = PostModelTest.post
         field_verboses = {
             'text': 'Текст поста',
@@ -48,7 +45,6 @@ class PostModelTest(TestCase):
                     post._meta.get_field(value).verbose_name, expected)
 
     def test_help_text(self):
-        """help_text в полях совпадает с ожидаемым."""
         post = PostModelTest.post
         field_help_texts = {
             'text': 'Текст нового поста',

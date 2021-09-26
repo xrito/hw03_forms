@@ -31,7 +31,6 @@ class PostURLTests(TestCase):
         self.authorized_client.force_login(self.author)
 
     def test_urls_uses_correct_template(self):
-        """URL-адрес использует соответствующий шаблон."""
         templates_url_names = {
             'posts/index.html': '/',
             'posts/post_detail.html': '/posts/1/',
