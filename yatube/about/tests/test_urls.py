@@ -14,6 +14,9 @@ class AboutURLTests(TestCase):
             with self.subTest(adress=adress):
                 response = self.guest_client.get(adress)
                 self.assertTemplateUsed(response, template)
+        
+
+
 
     def test_about_url_exists_at_desired_location(self):
         response = self.guest_client.get('/about/author/')

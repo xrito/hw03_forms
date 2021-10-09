@@ -38,8 +38,6 @@ class PostPagesTests(TestCase):
                 'posts:post_detail', kwargs={'post_id': self.post.id}),
             'posts/create_post.html': reverse('posts:create_post'),
             'posts/profile.html': reverse('posts:profile', args={self.author}),
-            'posts/create_post.html': reverse(
-                'posts:post_edit', kwargs={'post_id': self.post.id}),
         }
         for template, reverse_name in templates_pages_names.items():
             with self.subTest(reverse_name=reverse_name):
@@ -52,6 +50,11 @@ class PostPagesTests(TestCase):
         self.assertEqual(post.author, PostPagesTests.author)
         self.assertEqual(post.group.title, PostPagesTests.group.title)
         self.assertEqual(post.text, PostPagesTests.post.text)
+
+    def test_post_edit_page_show_correct_template(self):
+        response = self.authorized_client.get(reverse(
+            'posts:post_edit', kwargs={'post_id': self.post.id}))
+        self.assertTemplateUsed(response, 'posts/create_post.html')
 
     def test_index_page_show_correct_context(self):
         response = self.authorized_client.get(reverse('posts:index'))
@@ -113,7 +116,7 @@ class PaginatorViewsTest(TestCase):
             description='Тестовое описание',
         )
         number_of_posts = 13
-        for post in range(number_of_posts):
+        for post_num in range(number_of_posts):
             Post.objects.create(text='Текст', author=cls.author,
                                 group=cls.group)
 
